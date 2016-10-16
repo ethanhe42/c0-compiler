@@ -1,1 +1,1 @@
-yacc q2.y
+yacc -d q2.y

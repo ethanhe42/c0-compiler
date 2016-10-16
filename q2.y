@@ -11,9 +11,6 @@ program
     : external_declaration
     | program external_declaration
     ;
-//external_declaration
-//    : INT init_declarator_list
-//    | declaration_specifiers ID declarator compound_stmt
 
 external_declaration
     : var_declaration 
