@@ -5,7 +5,7 @@ c compiler with lex and yacc
 ### q1
 
 ### q2
-Note: There are two shift/reduce conflicts, correctly resolved by default:
+Note: There are 1 shift/reduce conflicts, correctly resolved by default:
   IF '(' expression ')' statement _ ELSE statement
 
 ### c0 tokens
