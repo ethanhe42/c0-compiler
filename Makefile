@@ -20,4 +20,4 @@ parser: $(OBJS)
 	$(CC) $(OBJS) -o $@ -lfl -lm
 
 clean:
-	rm -f $(OBJS) core *~ \#* *.o $(PROGRAM) y.* lex.yy.* calcparse.tab.*
+	rm -f $(OBJS) core *~ \#* *.o $(PROGRAM) lex.yy.* y.tab.*
