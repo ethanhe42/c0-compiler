@@ -23,6 +23,8 @@ WS  [ \t\v\n\f]
 
 %{
 #define ifprint 1
+#define VAR2STR(VAR) (#VAR)
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
@@ -36,14 +38,15 @@ extern int sym_type(const char *);  /* returns type from symbol table */
 
 static void comment(void);
 static int check_type(void);
-void writexml(int t){
+void writexml(char* t, int linenum){
     if(ifprint) {
-        printf("    <token line=\"%d\" type=\"%d\" string=\"%s\" />\n", yylineno, t, yytext);
+        printf("    <token line=\"%d\" type=\"%s\" string=\"%s\" />\n", linenum, t, yytext);
     }
 }
 %}
 
 %%
+"\n" {linenum++;}
 "/*"                                    { comment(); }
 "//".*                                    { /* consume //-comment */ }
 
@@ -129,7 +132,7 @@ void writexml(int t){
 "||"					{ return OR_OP; }
 "<="					{ return LE_OP; }
 ">="					{ return GE_OP; }
-"=="					{ return EQ_OP; }
+"=="					{writexml(VAR2STR(EQ_OP), linenum); return EQ_OP; }
 "!="					{ return NE_OP; }
 ";"					{ return ';'; }
 ("{"|"<%")				{ return '{'; }
@@ -137,8 +140,8 @@ void writexml(int t){
 ","					{ return ','; }
 ":"					{ return ':'; }
 "="					{ return '='; }
-"("					{if(ifprint) {fprintf(yyout, "haha");} return '('; }
-")"					{writexml("hoho"); return ')'; }
+"("					{return '('; }
+")"					{return ')'; }
 ("["|"<:")				{ return '['; }
 ("]"|":>")				{ return ']'; }
 "."					{ return '.'; }
@@ -202,7 +205,7 @@ main(argc, argv)
 int argc;
 char** argv;
 {
-
+int linenum = 1;
 if (argc > 1)
 {
     FILE *file;
@@ -214,13 +217,14 @@ if (argc > 1)
     }
     yyin=file;
 }
-printf("<?xml version=\"1.0\"?>");
-while 1 {
-    if (yywrap() == 1){
-        break;
-    }
-    else{
-        yylex()
-    }
+printf("<?xml version=\"1.0\"?>\n");
+
+for(;;) {
+    // if (yywrap() != 1){
+    //     break;
+    // }
+    // else{
+        yylex();
+    // }
 }
 }
