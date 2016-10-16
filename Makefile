@@ -1,11 +1,10 @@
 CC=gcc
 YFLAG=-d
-PROGRAM=parser
+PROGRAM =parser
 OBJS=y.tab.o lex.yy.o lexer.o
 SRCS=y.tab.c lex.yy.c lexer.cpp
 
-all:
-	$(PROGRAM)
+all: $(PROGRAM)
 
 .c.o: $(SRCS)
 	$(CC) -c $*.c -o $@ -O

@@ -62,7 +62,7 @@ static void comment(void);
 ")"				{ return RPAREN; }
 
 {L}{A}*					{ return ID; }
-{D}+			{ return I_CONSTANT; }
+{D}+			{ return NUM; }
 
 
 {WS}+					{ /* whitespace separates tokens */ }
