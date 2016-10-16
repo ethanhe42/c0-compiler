@@ -27,46 +27,48 @@ extern int sym_type(const char *);  /* returns type from symbol table */
 #define sym_type(identifier) IDENTIFIER /* with no symbol table, fake it */
 
 static void comment(void);
+
+//if (ifprint) {ECHO;fprintf(yyout, "  ");}
 %}
 
 %%
 "/*"                                    { comment(); }
 "//".*                                    { /* consume //-comment */ }
 
-"if"					{ return(IF); }
-"else"					{ return(ELSE); }
-"while"					{ return(WHILE); }
-"return"					{ return(RETURN); }
-"void"					{ return(VOID); }
-"int"					{ return(INT); }
+"if"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(IF); }
+"else"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(ELSE); }
+"while"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(WHILE); }
+"return"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(RETURN); }
+"void"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(VOID); }
+"int"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(INT); }
 
-"+"				{ return PLUS; }
-"-"				{ return MINUS; }
-"*"				{ return STAR; }
-"/"				{ return SLASH; }
-"<"				{ return LT; }
-"<="				{ return LTEQ; }
-">"				{ return GT; }
-">="				{ return GTEQ; }
-"=="				{ return EQ; }
-"!="				{ return NEQ; }
-"="				{ return ASSIGN; }
+"+"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return PLUS; }
+"-"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return MINUS; }
+"*"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return STAR; }
+"/"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return SLASH; }
+"<"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LT; }
+"<="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LTEQ; }
+">"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return GT; }
+">="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return GTEQ; }
+"=="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return EQ; }
+"!="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return NEQ; }
+"="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return ASSIGN; }
 
-("["|"<:")				{ return LSQUAR; }
-("]"|":>")				{ return RSQUAR; }
-("{"|"<%")				{ return LBRACE; }
-("}"|"%>")				{ return RBRACE; }
-";"				{ return SEMI; }
-","				{ return COMMA; }
-"("				{ return LPAREN; }
-")"				{ return RPAREN; }
+("["|"<:")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LSQUAR; }
+("]"|":>")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RSQUAR; }
+("{;"|"<%")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LBRACE; }
+("}"|"%>")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RBRACE; }
+";"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return SEMI; }
+","				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return COMMA; }
+"("				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LPAREN; }
+")"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RPAREN; }
 
-{L}{A}*					{ return ID; }
-{D}+			{ return NUM; }
+{L}{A}*					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return ID; }
+{D}+			{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return NUM; }
 
 
-{WS}+					{ /* whitespace separates tokens */ }
-.					{ /* discard bad characters */ }
+{WS}+					{if (ifprint) {ECHO;fprintf(yyout, "  ");};  /* whitespace separates tokens */ }
+.					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; /* discard bad characters */ }
 
 %%
 

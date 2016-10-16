@@ -1,6 +1,6 @@
 CC=gcc
 YFLAG=-d
-PROGRAM =parser
+PROGRAM=parser
 OBJS=y.tab.o lex.yy.o
 SRCS=y.tab.c lex.yy.c
 

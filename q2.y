@@ -1,3 +1,16 @@
+%{
+#define YYSTYPE double
+#include "y.tab.h"
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+extern double yylval;
+extern void yyerror(const char *);  /* prints grammar violation message */
+extern int yylex(void);
+extern FILE *yyin;
+extern FILE *yyout;
+%}
+
 %token IF ELSE WHILE RETURN VOID INT  
 %token PLUS MINUS STAR SLASH  LT LTEQ GT GTEQ EQ NEQ ASSIGN  
 %token SEMI COMMA LPAREN RPAREN LSQUAR RSQUAR LBRACE RBRACE LCOMMENT RCOMMENT 
@@ -8,149 +21,163 @@
 %%
 
 program
-    : external_declaration
-    | program external_declaration
+    : external_declaration {printf("parsing\n");}
+    | program external_declaration {printf("parsing\n");}
     ;
 
 external_declaration
-    : var_declaration 
-    | fun_declaration
+    : var_declaration {printf("var_declaration\n");}
+    | fun_declaration {printf("fun_declaration\n");}
     ;
 
 var_declaration
-    : declaration_specifiers init_declarator_list {if ($1 == VOID) {yyerror();} }
+    : declaration_specifiers init_declarator_list {if ($1 == VOID) {yyerror("error using VOID");} else {printf("declaration_specifiers init_declarator_list\n");}}
     ;
 
 init_declarator_list
-    : ID
-    | init_declarator_list COMMA ID
+    : ID {printf("ID");}
+    | init_declarator_list COMMA ID {printf("init_declarator_list COMMA ID\n");}
     ;
 
 declarator
-    : LPAREN RPAREN
-    | LPAREN params RPAREN
+    : LPAREN RPAREN {printf("declarator->LPAREN RPAREN");}
+    | LPAREN params RPAREN {printf("declarator->LPAREN params RPAREN\n");}
     ;
 
 fun_declaration
-    : declaration_specifiers ID declarator compound_stmt
+    : declaration_specifiers ID declarator compound_stmt {printf("declaration_specifiers ID declarator compound_stmt\n");}
     ;
 
 declaration_specifiers
-    : INT
-    | VOID
+    : INT {printf("INT\n");}
+    | VOID {printf("declaration_specifiers->VOID\n");}
     ;
 
 params_list
-    : INT ID
-    | params_list COMMA INT ID
+    : INT ID {printf("INT ID\n");}
+    | params_list COMMA INT ID {printf("params_list COMMA INT ID\n");}
 
 params
-    : params_list
-    | VOID 
+    : params_list {printf("params_list\n");}
+    | VOID {printf("params->VOID\n");}
     ;
     
 compound_stmt
-    : LBRACE RBRACE
-    | LBRACE block_item_list RBRACE
+    : LBRACE RBRACE {printf("compound_stmt->LBRACE RBRACE\n");}
+    | LBRACE block_item_list RBRACE {printf("compound_stmt->LBRACE block_item_list RBRACE\n");}
     ;
 
 block_item_list
-    : block_item 
-    | block_item_list block_item
+    : block_item {printf("block_item_list->block_item\n");}
+    | block_item_list block_item {printf("block_item_list->block_item_list block_item\n");}
     ;
 
 block_item
-    : var_declaration
-    | statement
+    : var_declaration {printf("var_declaration\n");}
+    | statement {printf("statement\n");}
     ;
 
 statement
-    : expression_stmt
-    | compound_stmt
-    | if_stmt 
-    | while_stmt 
-    | return_stmt 
+    : expression_stmt {printf("expression_stmt\n");}
+    | compound_stmt {printf("init_declarator_list\n");}
+    | if_stmt {printf("init_declarator_list\n");}
+    | while_stmt {printf("init_declarator_list\n");}
+    | return_stmt {printf("init_declarator_list\n");}
     ;
 
 expression_stmt
-    : SEMI 
-    | expression SEMI 
+    : SEMI {printf("init_declarator_list\n");}
+    | expression SEMI {printf("init_declarator_list\n");}
     ;
 
 if_stmt
-    : IF LPAREN expression RPAREN statement ELSE statement
-    | IF LPAREN expression RPAREN statement
+    : IF LPAREN expression RPAREN statement ELSE statement {printf("init_declarator_list\n");}
+    | IF LPAREN expression RPAREN statement {printf("init_declarator_list\n");}
     ;
 
 while_stmt
-    : WHILE LPAREN expression RPAREN statement 
+    : WHILE LPAREN expression RPAREN statement {printf("init_declarator_list\n");}
     ;
 
 return_stmt
-    : RETURN SEMI
-    | RETURN expression SEMI
+    : RETURN SEMI {printf("init_declarator_list\n");}
+    | RETURN expression SEMI {printf("init_declarator_list\n");}
     ;
     
 expression
-    : ID ASSIGN expression 
-    | simple_expression
+    : ID ASSIGN expression {printf("init_declarator_list\n");}
+    | simple_expression {printf("init_declarator_list\n");}
     ;
 
 simple_expression
-    : additive_expression
-    | additive_expression relop additive_expression
+    : additive_expression {printf("init_declarator_list\n");}
+    | additive_expression relop additive_expression {printf("init_declarator_list\n");}
     ;
 
 relop 
-    : LT
-    | LTEQ 
-    | GT
-    | GTEQ 
-    | EQ 
-    | NEQ 
+    : LT {printf("init_declarator_list\n");}
+    | LTEQ  {printf("init_declarator_list\n");}
+    | GT {printf("init_declarator_list\n");}
+    | GTEQ  {printf("init_declarator_list\n");}
+    | EQ  {printf("init_declarator_list\n");}
+    | NEQ  {printf("init_declarator_list\n");}
     ;
 
 additive_expression
-    : term 
-    | additive_expression PLUS term
-    | additive_expression MINUS term
+    : term {printf("init_declarator_list\n");}
+    | additive_expression PLUS term {printf("init_declarator_list\n");}
+    | additive_expression MINUS term {printf("init_declarator_list\n");}
     ;
 
 term
-    : factor
-    | term STAR factor
-    | term SLASH factor
+    : factor {printf("init_declarator_list\n");}
+    | term STAR factor {printf("init_declarator_list\n");}
+    | term SLASH factor {printf("init_declarator_list\n");}
     ;
 
 factor
-    : LPAREN expression RPAREN
-    | ID 
-    | call 
-    | NUM
+    : LPAREN expression RPAREN {printf("init_declarator_list\n");}
+    | ID {printf("init_declarator_list\n");}
+    | call {printf("init_declarator_list\n");}
+    | NUM {printf("init_declarator_list\n");}
     ;
     
 call
-    : ID LPAREN RPAREN 
-    | ID LPAREN args RPAREN 
+    : ID LPAREN RPAREN {printf("init_declarator_list\n");}
+    | ID LPAREN args RPAREN {printf("init_declarator_list\n");}
     ;
 
 args
-    : expression
-    | expression COMMA args
+    : expression {printf("init_declarator_list\n");}
+    | expression COMMA args {printf("init_declarator_list\n");}
     ;
 
 %%
 #include <stdio.h>
-char *progname;
-
 main(argc, argv)
 int argc;
 char** argv;
 {
-progname = argv[0];
-yyparse();
-return 0; 
+if (argc > 1)
+{
+    FILE *file;
+    file = fopen(argv[1], "r");
+    if (!file)
+    {
+        fprintf(stderr, "failed open");
+        exit(1);
+    }
+    yyin=file;
+    printf("success open %s\n", argv[1]);
 }
+else
+{
+    printf("no input file\n");
+    exit(1);
+}
+yyparse();  
+return 0; 
+} 
 
 void yyerror(const char *s)
 {

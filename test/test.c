@@ -1,4 +1,4 @@
-main()
+void main()
 {
 	int sum1=100;
 	int a;
