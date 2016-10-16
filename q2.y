@@ -11,6 +11,9 @@ program
     : external_declaration
     | program external_declaration
     ;
+//external_declaration
+//    : INT init_declarator_list
+//    | declaration_specifiers ID declarator compound_stmt
 
 external_declaration
     : var_declaration 
@@ -18,7 +21,7 @@ external_declaration
     ;
 
 var_declaration
-    : INT init_declarator_list
+    : declaration_specifiers init_declarator_list {if ($1 == VOID) {yyerror();} }
     ;
 
 init_declarator_list
@@ -40,8 +43,12 @@ declaration_specifiers
     | VOID
     ;
 
+params_list
+    : INT ID
+    | params_list COMMA INT ID
+
 params
-    : var_declaration 
+    : params_list
     | VOID 
     ;
     
