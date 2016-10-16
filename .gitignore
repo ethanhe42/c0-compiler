@@ -1,4 +1,5 @@
 lex.yy.c
+parser
 *.tab.h
 *.tab.c
 # Compiled Object files

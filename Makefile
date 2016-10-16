@@ -1,8 +1,8 @@
 CC=gcc
 YFLAG=-d
 PROGRAM =parser
-OBJS=y.tab.o lex.yy.o lexer.o
-SRCS=y.tab.c lex.yy.c lexer.cpp
+OBJS=y.tab.o lex.yy.o
+SRCS=y.tab.c lex.yy.c
 
 all: $(PROGRAM)
 

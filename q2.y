@@ -141,6 +141,16 @@ args
 
 %%
 #include <stdio.h>
+char *progname;
+
+main(argc, argv)
+int argc;
+char** argv;
+{
+progname = argv[0];
+yyparse();
+return 0; 
+}
 
 void yyerror(const char *s)
 {
