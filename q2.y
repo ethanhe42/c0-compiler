@@ -19,6 +19,9 @@ extern FILE *yyout;
 %token ID NUM LETTER DIGIT
 %token NONTOKEN ERROR ENDFILE
 
+%left PLUS MINUS
+%left STAR SLASH
+
 %start program
 %%
 
@@ -34,11 +37,11 @@ external_declaration
 
 var_declaration
     : declaration_specifiers init_declarator_list SEMI {if ($1 == VOID) {yyerror("error using VOID");} else {printf("var_declaration -> declaration_specifiers init_declarator_list\n");}}
-    | declaration_specifiers expression {if ($1 == VOID) {yyerror("error using VOID");} else {printf("var_declaration -> declaration_specifiers init_declarator_list\n");}}
     ;
 
 init_declarator_list
     : ID {printf("%s ID ", $1);}
+    | ID ASSIGN expression {printf("%s ID= ", $1);}
     | init_declarator_list COMMA ID {printf("init_declarator_list COMMA ID %s", $1);}
     ;
 
@@ -130,6 +133,8 @@ additive_expression
     : term {printf("init_declarator_list\n");}
     | additive_expression PLUS term {printf("init_declarator_list\n");}
     | additive_expression MINUS term {printf("init_declarator_list\n");}
+    | PLUS additive_expression %prec STAR {printf("unary\n");}
+    | MINUS additive_expression %prec STAR {printf("unary\n");}
     ;
 
 term

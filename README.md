@@ -8,6 +8,8 @@ c compiler with lex and yacc
 Note: There are 1 shift/reduce conflicts, correctly resolved by default:
   IF '(' expression ')' statement _ ELSE statement
 
+Solve unary via %prec
+
 ### c0 tokens
 	public enum TokenType 
 	{
