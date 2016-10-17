@@ -1,1 +1,5 @@
-yacc -d q2.y
+set -e
+
+make clean
+make 
+./parser $1

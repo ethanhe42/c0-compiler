@@ -19,6 +19,7 @@ WS  [ \t\v\n\f]
 #include <stdlib.h>
 #include <string.h> 
 #include "y.tab.h"
+//extern char* yylval;
 
 extern void yyerror(const char *);  /* prints grammar violation message */
 
@@ -39,8 +40,8 @@ static void comment(void);
 "else"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(ELSE); }
 "while"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(WHILE); }
 "return"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(RETURN); }
-"void"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(VOID); }
-"int"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(INT); }
+"void"					{yylval = strdup(yytext); return(VOID); }
+"int"					{yylval = strdup(yytext); return(INT); }
 
 "+"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return PLUS; }
 "-"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return MINUS; }
@@ -54,16 +55,16 @@ static void comment(void);
 "!="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return NEQ; }
 "="				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return ASSIGN; }
 
-("["|"<:")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LSQUAR; }
-("]"|":>")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RSQUAR; }
-("{;"|"<%")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LBRACE; }
-("}"|"%>")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RBRACE; }
+("[")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LSQUAR; }
+("]")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RSQUAR; }
+("{")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LBRACE; }
+("}")				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RBRACE; }
 ";"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return SEMI; }
 ","				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return COMMA; }
 "("				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LPAREN; }
 ")"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RPAREN; }
 
-{L}{A}*					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return ID; }
+{L}{A}*					{ yylval = strdup(yytext); return ID; }
 {D}+			{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return NUM; }
 
 

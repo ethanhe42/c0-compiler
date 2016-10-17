@@ -1,10 +1,12 @@
 %{
-#define YYSTYPE double
-#include "y.tab.h"
+//#include "y.tab.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-extern double yylval;
+
+typedef char* string;
+#define YYSTYPE string
+
 extern void yyerror(const char *);  /* prints grammar violation message */
 extern int yylex(void);
 extern FILE *yyin;
@@ -21,8 +23,8 @@ extern FILE *yyout;
 %%
 
 program
-    : external_declaration {printf("parsing\n");}
-    | program external_declaration {printf("parsing\n");}
+    : external_declaration {printf("external_declaration\n");}
+    | program external_declaration {printf("program external_declaration\n");}
     ;
 
 external_declaration
@@ -31,12 +33,13 @@ external_declaration
     ;
 
 var_declaration
-    : declaration_specifiers init_declarator_list {if ($1 == VOID) {yyerror("error using VOID");} else {printf("declaration_specifiers init_declarator_list\n");}}
+    : declaration_specifiers init_declarator_list SEMI {if ($1 == VOID) {yyerror("error using VOID");} else {printf("var_declaration -> declaration_specifiers init_declarator_list\n");}}
+    | declaration_specifiers expression {if ($1 == VOID) {yyerror("error using VOID");} else {printf("var_declaration -> declaration_specifiers init_declarator_list\n");}}
     ;
 
 init_declarator_list
-    : ID {printf("ID");}
-    | init_declarator_list COMMA ID {printf("init_declarator_list COMMA ID\n");}
+    : ID {printf("%s ID ", $1);}
+    | init_declarator_list COMMA ID {printf("init_declarator_list COMMA ID %s", $1);}
     ;
 
 declarator
@@ -49,8 +52,8 @@ fun_declaration
     ;
 
 declaration_specifiers
-    : INT {printf("INT\n");}
-    | VOID {printf("declaration_specifiers->VOID\n");}
+    : INT {printf("%s INT", $1);}
+    | VOID {printf("%s VOID", $1);}
     ;
 
 params_list

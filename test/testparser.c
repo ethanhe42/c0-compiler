@@ -1,3 +1,7 @@
+int a;
+int b;
+int d,e,f;
+
 void main()
 {
    int a=0;
