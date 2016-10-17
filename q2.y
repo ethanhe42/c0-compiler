@@ -7,6 +7,8 @@
 typedef char* string;
 #define YYSTYPE string
 
+#define release 1
+
 extern void yyerror(const char *);  /* prints grammar violation message */
 extern int yylex(void);
 extern FILE *yyin;
@@ -183,6 +185,7 @@ else
     printf("no input file\n");
     exit(1);
 }
+printf("<?xml version=\"1.0\"?>\n");
 yyparse();  
 return 0; 
 } 
