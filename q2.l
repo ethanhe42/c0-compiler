@@ -43,6 +43,8 @@ static void comment(void);
 "void"					{yylval = strdup(yytext); return(VOID); }
 "int"					{yylval = strdup(yytext); return(INT); }
 
+"++"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return INC_OP; }
+"--"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return DEC_OP; }
 "+"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return PLUS; }
 "-"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return MINUS; }
 "*"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return STAR; }

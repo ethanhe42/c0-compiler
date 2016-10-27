@@ -16,7 +16,7 @@ extern FILE *yyout;
 %}
 
 %token IF ELSE WHILE RETURN VOID INT  
-%token PLUS MINUS STAR SLASH  LT LTEQ GT GTEQ EQ NEQ ASSIGN  
+%token INC_OP DEC_OP PLUS MINUS STAR SLASH  LT LTEQ GT GTEQ EQ NEQ ASSIGN  
 %token SEMI COMMA LPAREN RPAREN LSQUAR RSQUAR LBRACE RBRACE LCOMMENT RCOMMENT 
 %token ID NUM LETTER DIGIT
 %token NONTOKEN ERROR ENDFILE
@@ -113,8 +113,23 @@ return_stmt
     ;
     
 expression
-    : ID ASSIGN expression {printf("init_declarator_list\n");}
+    : assignment_expression {printf("assignment_expression\n");}
     | simple_expression {printf("init_declarator_list\n");}
+    ;
+
+assignment_expression
+    : ID ASSIGN expression {printf("assigment\n");}
+    | unary_expression  {printf("unary_assigment\n");}    ;
+
+unary_expression 
+    : INC_OP ID
+    | DEC_OP ID
+    | postfix_expression
+    ;
+
+postfix_expression
+    : ID INC_OP
+    | ID DEC_OP
     ;
 
 simple_expression

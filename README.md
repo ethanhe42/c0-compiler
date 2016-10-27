@@ -10,6 +10,8 @@ Note: There are 1 shift/reduce conflicts, correctly resolved by default:
 
 Solve unary via %prec
 
+Solve ++ with lexer INC_OP
+
 ### c0 tokens
 	public enum TokenType 
 	{
