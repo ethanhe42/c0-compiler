@@ -18,6 +18,9 @@ union define tokens, pass yylval.str from lex to yacc
 
 yacc recursive $$ $1
 
+#### TODO
+lineno
+
 ### c0 tokens
 	public enum TokenType 
 	{
