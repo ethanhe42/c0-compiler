@@ -274,7 +274,7 @@ if (argc > 1)
         exit(1);
     }
     yyin=file;
-    printf("success open %s\n", argv[1]);
+    //printf("success open %s\n", argv[1]);
 }
 else
 {
