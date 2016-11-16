@@ -4,7 +4,9 @@ void main()
 	int a;
 	int b;
 	if (1 == 1+0){
-		print("arc");
+        a=3;
 	}
-	print("hello %d", sum1);
+    else {
+        b=5;
+    }
 }

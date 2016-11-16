@@ -52,13 +52,15 @@ void printNode(struct treeNode* node){
         node->value, 
         node->dataType);
     int i;
-    printf("%s<Child>\n", indent);
-    incIndent();
-    for (i=0;i<node->Nchildren;i++){
-        printNode(node->child[i]);
+    if (node->Nchildren > 0){
+        printf("%s<Child>\n", indent);
+        incIndent();
+        for (i=0;i<node->Nchildren;i++){
+            printNode(node->child[i]);
+        }
+        decIndent();
+        printf("%s</Child>\n", indent);
     }
-    decIndent();
-    printf("%s</Child>\n", indent);
     printf("%s</Tree>\n", indent);
 }
 

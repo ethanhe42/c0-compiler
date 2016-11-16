@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<root>
+  <Tree dataType="VOID" lineNo="7" nodeType="fun_declaration" string="main" value="none">
+    <Child>
+      <Tree dataType="none" lineNo="6" nodeType="block_item_list" string="none" value="none">
+        <Child>
+          <Tree dataType="none" lineNo="4" nodeType="block_item_list" string="none" value="none">
+            <Child>
+              <Tree dataType="INT" lineNo="3" nodeType="var_declaration" string="none" value="none">
+                <Child>
+                  <Tree dataType="none" lineNo="3" nodeType="init_declarator_list" string="a" value="none">
+                    <Child>
+                      <Tree dataType="none" lineNo="3" nodeType="factor" string="none" value="0"></Tree>
+                    </Child>
+                  </Tree>
+                </Child>
+              </Tree>
+              <Tree dataType="INT" lineNo="4" nodeType="var_declaration" string="none" value="none">
+                <Child>
+                  <Tree dataType="none" lineNo="4" nodeType="init_declarator_list" string="b" value="none">
+                    <Child>
+                      <Tree dataType="none" lineNo="4" nodeType="factor" string="none" value="2"></Tree>
+                    </Child>
+                  </Tree>
+                </Child>
+              </Tree>
+            </Child>
+          </Tree>
+          <Tree dataType="none" lineNo="6" nodeType="while_stmt" string="none" value="none">
+            <Child>
+              <Tree dataType="==" lineNo="5" nodeType="simple_expression" string="none" value="none">
+                <Child>
+                  <Tree dataType="none" lineNo="5" nodeType="factor" string="a" value="none"></Tree>
+                  <Tree dataType="none" lineNo="5" nodeType="factor" string="b" value="none"></Tree>
+                </Child>
+              </Tree>
+              <Tree dataType="++" lineNo="6" nodeType="unary_expression" string="a" value="none"></Tree>
+            </Child>
+          </Tree>
+        </Child>
+      </Tree>
+    </Child>
+  </Tree>
+</root>

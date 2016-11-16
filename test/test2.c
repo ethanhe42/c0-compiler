@@ -1,10 +1,18 @@
-#include <stdio.h>
-#include <stdlib.h>
-
+int foo(int a,int b){
+    return a+b;
+}
+void bar(int a){
+    if (a==0){
+        exit(-1);
+    }
+    else{
+        exit(0);
+    }
+}
 void main(){
-    printf("<?xml version=\"1.0\"?>");
-    char* yylineno;
-    char* t;
-    char* yytext;
-    printf("<token line=\"%s\" type=\"%s\" string=\"%s\" />", yylineno, t, yytext)
+    int yylineno;
+    int t;
+    int yytext;
+    t = foo(3,4);
+    bar(t);
 }

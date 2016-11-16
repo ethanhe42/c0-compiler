@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<root>
+  <Tree dataType="INT" lineNo="1" nodeType="var_declaration" string="none" value="none">
+    <Child>
+      <Tree dataType="none" lineNo="1" nodeType="init_declarator_list" string="a" value="none">
+        <Child>
+          <Tree dataType="none" lineNo="1" nodeType="factor" string="none" value="0"></Tree>
+        </Child>
+      </Tree>
+    </Child>
+  </Tree>
+</root>
