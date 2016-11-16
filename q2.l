@@ -15,7 +15,7 @@ A   [a-zA-Z_0-9]
 WS  [ \t\v\n\f]
 
 %{
-#define ifprint 1
+#define ifprint 0
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,7 +71,7 @@ static void comment(void);
 ")"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RPAREN; }
 
 {L}{A}*					{ yylval.str = strdup(yytext); return ID; }
-{D}+			{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return NUM; }
+{D}+			{if (ifprint) {ECHO;fprintf(yyout, "  ");};yylval.str = strdup(yytext); return NUM; }
 
 
 {WS}+					{if (ifprint) {ECHO;fprintf(yyout, "  ");};  /* whitespace separates tokens */ }
