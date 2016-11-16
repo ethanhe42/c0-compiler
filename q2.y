@@ -282,8 +282,9 @@ else
     printf("no input file\n");
     exit(1);
 }
-printf("<?xml version=\"1.0\"?>\n");
+printf("<?xml version=\"1.0\"?>\n<root>\n");
 yyparse();  
+printf("</root>\n");
 return 0; 
 } 
 
