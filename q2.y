@@ -1,50 +1,122 @@
 %{
+
 //#include "y.tab.h"
+#include "ast.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
 
-typedef char* string;
-#define YYSTYPE string
-
+//typedef char* string;
+//#define YYSTYPE string
+#define STR(VAR) (#VAR)
 #define release 1
+#define MAXCHILD 10
 
 extern void yyerror(const char *);  /* prints grammar violation message */
 extern int yylex(void);
 extern FILE *yyin;
 extern FILE *yyout;
-%}
+extern int yylineno;
 
-%token IF ELSE WHILE RETURN VOID INT  
+char* tab="  ";
+char indent[100]="";
+
+void incIndent(){
+    strcat(indent, tab);
+}
+void decIndent(){
+    int len = strlen(indent);
+    indent[len-2]='\0';
+}
+
+struct treeNode{
+    struct treeNode *child[MAXCHILD];
+    char* nodeType;
+    char* string;
+    char* value;
+    char* dataType;
+    int lineNo;
+};
+void printNode(struct treeNode* node){
+    printf("%s<Tree lineNo=%d nodeType=%s string=%s value=%s dataType=%s>\n", 
+        indent,
+        node->lineNo,
+        node->nodeType,
+        node->string,
+        node->value, 
+        node->dataType);
+}
+
+struct treeNode * newnode(char* nodeType, char* string, char* value, char* dataType, int lineNo, int Nchildren, ...){
+    struct treeNode * node = (struct treeNode*) malloc(sizeof(struct treeNode));
+    node->nodeType = nodeType;
+    node->string = string;
+    node->value = value;
+    node->dataType = dataType;
+    node->lineNo = lineNo;
+    printNode(node);
+
+    va_list ap;
+    int i;
+    va_start(ap, Nchildren);
+    for (i=0;i<Nchildren;i++){
+        printf("%s<Child>\n", indent);
+        incIndent();
+        printNode(va_arg(ap, struct treeNode *));
+        decIndent();
+        printf("%s</Child>\n", indent);
+    }
+    va_end(ap);
+    printf("</Tree>\n");
+    return node;
+}
+char* none = "none";
+%}
+%code requires {
+
+}
+
+%union {
+    char* str;
+    struct treeNode * ast;
+}
+
+%token IF ELSE WHILE RETURN VOID INT
 %token INC_OP DEC_OP PLUS MINUS STAR SLASH  LT LTEQ GT GTEQ EQ NEQ ASSIGN  
 %token SEMI COMMA LPAREN RPAREN LSQUAR RSQUAR LBRACE RBRACE LCOMMENT RCOMMENT 
-%token ID NUM LETTER DIGIT
+%token <str> ID NUM
+%token LETTER DIGIT
 %token NONTOKEN ERROR ENDFILE
 
 %left PLUS MINUS
 %left STAR SLASH
 
+%type<ast> program external_declaration var_declaration init_declarator_list fun_declaration params_list expression declaration_specifiers compound_stmt
+
 %start program
 %%
 
 program
-    : external_declaration {printf("external_declaration\n");}
-    | program external_declaration {printf("program external_declaration\n");}
+    : external_declaration {$$=$1;}
+    | program external_declaration {$$=newnode(STR(program), none, none, none, yylineno, 2, $1, $2); }
     ;
 
 external_declaration
-    : var_declaration {printf("var_declaration\n");}
-    | fun_declaration {printf("fun_declaration\n");}
+    : var_declaration {$$=$1;}
+    | fun_declaration {$$=$1;}
     ;
 
 var_declaration
-    : declaration_specifiers init_declarator_list SEMI {if ($1 == VOID) {yyerror("error using VOID");} else {printf("var_declaration -> declaration_specifiers init_declarator_list\n");}}
+    : declaration_specifiers init_declarator_list SEMI 
+    {$$=newnode("var_declaration", none, none, none, yylineno, 1, $2); }
     ;
 
 init_declarator_list
-    : ID {printf("%s ID ", $1);}
-    | ID ASSIGN expression {printf("%s ID= ", $1);}
-    | init_declarator_list COMMA ID {printf("init_declarator_list COMMA ID %s", $1);}
+    : ID {$$ = newnode("init_declarator_list", none, none, none, yylineno, 0); printf("ID %d", yylineno);}
+    | ID ASSIGN expression {$$ = newnode("init_declarator_list", none, none, none, yylineno, 0);}
+    | init_declarator_list COMMA ID {$$ = newnode("init_declarator_list", none, none, none, yylineno, 0);}
     ;
 
 declarator
@@ -53,12 +125,12 @@ declarator
     ;
 
 fun_declaration
-    : declaration_specifiers ID declarator compound_stmt {printf("declaration_specifiers ID declarator compound_stmt\n");}
+    : declaration_specifiers ID declarator compound_stmt {$$=newnode(STR(fun_declaration), $2, none, $1, yylineno, 1, $4);}
     ;
 
 declaration_specifiers
-    : INT {printf("%s INT", $1);}
-    | VOID {printf("%s VOID", $1);}
+    : INT {$$="INT";}
+    | VOID {$$="VOID";}
     ;
 
 params_list
@@ -210,3 +282,6 @@ void yyerror(const char *s)
 	fflush(stdout);
 	fprintf(stderr, "*** %s\n", s);
 }
+
+
+

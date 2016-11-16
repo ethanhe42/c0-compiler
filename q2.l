@@ -5,6 +5,9 @@
 %a  1213
 %o  1117
 
+%option yylineno
+
+
 D   [0-9]
 NZ  [1-9]
 L   [a-zA-Z_]
@@ -13,7 +16,6 @@ WS  [ \t\v\n\f]
 
 %{
 #define ifprint 1
-#define VAR2STR(VAR) (#VAR)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,8 +42,10 @@ static void comment(void);
 "else"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(ELSE); }
 "while"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(WHILE); }
 "return"					{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return(RETURN); }
-"void"					{yylval = strdup(yytext); return(VOID); }
-"int"					{yylval = strdup(yytext); return(INT); }
+"void"					{yylval.str = strdup(yytext); 
+                         return(VOID); }
+"int"					{yylval.str = strdup(yytext); 
+                        return(INT); }
 
 "++"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return INC_OP; }
 "--"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return DEC_OP; }
@@ -66,7 +70,7 @@ static void comment(void);
 "("				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return LPAREN; }
 ")"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return RPAREN; }
 
-{L}{A}*					{ yylval = strdup(yytext); return ID; }
+{L}{A}*					{ yylval.str = strdup(yytext); return ID; }
 {D}+			{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return NUM; }
 
 

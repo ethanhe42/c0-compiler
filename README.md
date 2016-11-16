@@ -12,6 +12,12 @@ Solve unary via %prec
 
 Solve ++ with lexer INC_OP
 
+union define tokens, pass yylval.str from lex to yacc
+
+%option yylineno use linenon
+
+yacc recursive $$ $1
+
 ### c0 tokens
 	public enum TokenType 
 	{
