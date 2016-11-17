@@ -1,5 +1,8 @@
-1行	关键字	int
-1行	保留字	a
-1行	标识符	=
-1行	数字	0
-1行	标识符	;
+<?xml version="1.0"?>
+<root>
+  <token line="1" type="INT" string="int" />
+  <token line="1" type="ID" string="a" />
+  <token line="1" type="ASSIGN" string="=" />
+  <token line="1" type="NUMBER" string="0" />
+  <token line="1" type="SEMI" string=";" />
+</root>

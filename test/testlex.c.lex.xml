@@ -1,61 +1,64 @@
-1行	关键字	void
-1行	保留字	f1
-1行	标识符	(
-1行	关键字	int
-1行	保留字	a
-1行	标识符	,
-1行	关键字	int
-1行	保留字	b
-1行	标识符	)
-1行	标识符	{
-2行	保留字	a
-2行	标识符	=
-2行	数字	1
-2行	标识符	;
-3行	保留字	b
-3行	标识符	=
-3行	保留字	a
-3行	左括号	+
-3行	保留字	b
-3行	标识符	;
-4行	标识符	}
-5行	关键字	void
-5行	保留字	main
-5行	标识符	(
-5行	标识符	)
-6行	标识符	{
-7行	关键字	int
-7行	保留字	a
-7行	标识符	[
-7行	数字	100
-7行	标识符	]
-7行	标识符	;
-8行	关键字	int
-8行	保留字	b
-8行	标识符	;
-9行	保留字	float
-9行	保留字	c
-9行	标识符	;
-10行	保留字	a
-10行	标识符	[
-10行	保留字	b
-10行	标识符	]
-10行	标识符	=
-10行	保留字	a
-10行	标识符	;
-11行	关键字	if
-11行	标识符	(
-11行	保留字	c
-11行	右括号	<
-11行	保留字	b
-11行	标识符	)
-11行	标识符	{
-12行	保留字	f1
-12行	标识符	(
-12行	保留字	a
-12行	标识符	,
-12行	保留字	b
-12行	标识符	)
-12行	标识符	;
-13行	标识符	}
-14行	标识符	}
+<?xml version="1.0"?>
+<root>
+  <token line="1" type="VOID" string="void" />
+  <token line="1" type="ID" string="f1" />
+  <token line="1" type="LPAREN" string="(" />
+  <token line="1" type="INT" string="int" />
+  <token line="1" type="ID" string="a" />
+  <token line="1" type="COMMA" string="," />
+  <token line="1" type="INT" string="int" />
+  <token line="1" type="ID" string="b" />
+  <token line="1" type="RPAREN" string=")" />
+  <token line="1" type="LBRACE" string="{" />
+  <token line="2" type="ID" string="a" />
+  <token line="2" type="ASSIGN" string="=" />
+  <token line="2" type="NUMBER" string="1" />
+  <token line="2" type="SEMI" string=";" />
+  <token line="3" type="ID" string="b" />
+  <token line="3" type="ASSIGN" string="=" />
+  <token line="3" type="ID" string="a" />
+  <token line="3" type="PLUS" string="+" />
+  <token line="3" type="ID" string="b" />
+  <token line="3" type="SEMI" string=";" />
+  <token line="4" type="RBRACE" string="}" />
+  <token line="5" type="VOID" string="void" />
+  <token line="5" type="ID" string="main" />
+  <token line="5" type="LPAREN" string="(" />
+  <token line="5" type="RPAREN" string=")" />
+  <token line="6" type="LBRACE" string="{" />
+  <token line="7" type="INT" string="int" />
+  <token line="7" type="ID" string="a" />
+  <token line="7" type="LSQUAR" string="[" />
+  <token line="7" type="NUMBER" string="100" />
+  <token line="7" type="RSQUAR" string="]" />
+  <token line="7" type="SEMI" string=";" />
+  <token line="8" type="INT" string="int" />
+  <token line="8" type="ID" string="b" />
+  <token line="8" type="SEMI" string=";" />
+  <token line="9" type="FLOAT" string="float" />
+  <token line="9" type="ID" string="c" />
+  <token line="9" type="SEMI" string=";" />
+  <token line="10" type="ID" string="a" />
+  <token line="10" type="LSQUAR" string="[" />
+  <token line="10" type="ID" string="b" />
+  <token line="10" type="RSQUAR" string="]" />
+  <token line="10" type="ASSIGN" string="=" />
+  <token line="10" type="ID" string="a" />
+  <token line="10" type="SEMI" string=";" />
+  <token line="11" type="IF" string="if" />
+  <token line="11" type="LPAREN" string="(" />
+  <token line="11" type="ID" string="c" />
+  <token line="11" type="LT" string="<" />
+  <token line="11" type="ID" string="b" />
+  <token line="11" type="RPAREN" string=")" />
+  <token line="11" type="LBRACE" string="{" />
+  <token line="12" type="ID" string="f1" />
+  <token line="12" type="LPAREN" string="(" />
+  <token line="12" type="ID" string="a" />
+  <token line="12" type="COMMA" string="," />
+  <token line="12" type="ID" string="b" />
+  <token line="12" type="RPAREN" string=")" />
+  <token line="12" type="SEMI" string=";" />
+  <token line="13" type="RBRACE" string="}" />
+  <token line="14" type="RBRACE" string="}" />
+</root>

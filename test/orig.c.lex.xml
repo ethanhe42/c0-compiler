@@ -1,26 +1,28 @@
-1行	关键字	void
-1行	保留字	main
-1行	标识符	(
-1行	标识符	)
-2行	标识符	{
-3行	关键字	int
-3行	保留字	a
-3行	标识符	=
-3行	数字	0
-3行	标识符	;
-4行	关键字	int
-4行	保留字	b
-4行	标识符	=
-4行	数字	2
-4行	标识符	;
-5行	关键字	while
-5行	标识符	(
-5行	保留字	a
-5行	右括号	==
-5行	保留字	b
-5行	标识符	)
-6行	左括号	+
-6行	左括号	+
-6行	保留字	a
-6行	标识符	;
-7行	标识符	}
+<?xml version="1.0"?>
+<root>
+  <token line="1" type="VOID" string="void" />
+  <token line="1" type="ID" string="main" />
+  <token line="1" type="LPAREN" string="(" />
+  <token line="1" type="RPAREN" string=")" />
+  <token line="2" type="LBRACE" string="{" />
+  <token line="3" type="INT" string="int" />
+  <token line="3" type="ID" string="a" />
+  <token line="3" type="ASSIGN" string="=" />
+  <token line="3" type="NUMBER" string="0" />
+  <token line="3" type="SEMI" string=";" />
+  <token line="4" type="INT" string="int" />
+  <token line="4" type="ID" string="b" />
+  <token line="4" type="ASSIGN" string="=" />
+  <token line="4" type="NUMBER" string="2" />
+  <token line="4" type="SEMI" string=";" />
+  <token line="5" type="WHILE" string="while" />
+  <token line="5" type="LPAREN" string="(" />
+  <token line="5" type="ID" string="a" />
+  <token line="5" type="EQ" string="==" />
+  <token line="5" type="ID" string="b" />
+  <token line="5" type="RPAREN" string=")" />
+  <token line="6" type="INC_OP" string="++" />
+  <token line="6" type="ID" string="a" />
+  <token line="6" type="SEMI" string=";" />
+  <token line="7" type="RBRACE" string="}" />
+</root>
