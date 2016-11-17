@@ -23,6 +23,7 @@ char* tab="  ";
 char indent[100]="";
 
 char* integer="INT";
+char* floating="float";
 char* none = "none";
 char* assign = "=";
 
@@ -91,10 +92,10 @@ struct treeNode * newnode(int lineNo, char* nodeType, char* string, char* value,
     struct treeNode * ast;
 }
 
-%token IF ELSE WHILE RETURN VOID INT
+%token IF ELSE WHILE RETURN VOID INT FLOAT
 %token INC_OP DEC_OP PLUS MINUS STAR SLASH  LT LTEQ GT GTEQ EQ NEQ ASSIGN  
 %token SEMI COMMA LPAREN RPAREN LSQUAR RSQUAR LBRACE RBRACE LCOMMENT RCOMMENT 
-%token <str> ID NUM 
+%token <str> ID NUM
 %token LETTER DIGIT
 %token NONTOKEN ERROR ENDFILE
 
@@ -142,11 +143,15 @@ fun_declaration
 declaration_specifiers
     : INT {$$=integer;}
     | VOID {$$="VOID";}
+    | FLOAT {$$="VOID";}
     ;
 
 params_list
     : INT ID {$$ = newnode(yylineno,"params_list", $2, none, integer,  0);}
+    | FLOAT ID {$$ = newnode(yylineno,"params_list", $2, none, floating,  0);}
     | params_list COMMA INT ID {$$ = newnode(yylineno,"params_list", $4, none, integer,  1, $1);}
+    | params_list COMMA FLOAT ID {$$ = newnode(yylineno,"params_list", $4, none, floating,  1, $1);}
+    ;
 
 params
     : params_list {$$=$1;}

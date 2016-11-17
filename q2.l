@@ -47,6 +47,8 @@ static void comment(void);
                          return(VOID); }
 "int"					{yylval.str = strdup(yytext); 
                         return(INT); }
+"float"					{yylval.str = strdup(yytext); 
+                        return(FLOAT); }
 
 "++"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return INC_OP; }
 "--"				{if (ifprint) {ECHO;fprintf(yyout, "  ");}; return DEC_OP; }
