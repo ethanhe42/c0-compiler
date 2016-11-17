@@ -5,7 +5,6 @@
 %a  1213
 %o  1117
 
-%option yylineno
 
 
 D   [0-9]
@@ -13,6 +12,8 @@ NZ  [1-9]
 L   [a-zA-Z_]
 A   [a-zA-Z_0-9]
 WS  [ \t\v\n\f]
+
+%option yylineno
 
 %{
 #define ifprint 0
