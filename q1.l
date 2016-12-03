@@ -14,7 +14,10 @@ WS  [ \t\v\n\f]
 int yywrap(); 
 
 void printToken(char* type){
-    fprintf(yyout,"  <token line=\"%d\" type=\"%s\" string=\"%s\" />\n", yylineno, type,yytext);
+fprintf(yyout,"  <token line=\"%d\" type=\"%s\" string=\"%s\" />\n", 
+	yylineno, 
+	type,
+	yytext);
 }
 static void comment(void);
 %}
